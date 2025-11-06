@@ -6,19 +6,22 @@ ASIC implementation of a Maximum Power Point Tracking (MPPT) controller
 
 ```
 asic-mppt/
-├── rtl/                    # Verilog RTL source files
-│   └── mppt.v              # Main MPPT controller module
-├── sim/                    # Simulation files
-│   └── *.v                 # Testbench files
-├── synth/                  # Synthesis files and reports
-│   └── synth.ys            # Yosys synthesis script
-├── pnr/                    # Place and Route files
-│   └── floorplan.tcl       # OpenROAD floorplan script
-├── docs/                   # Documentation
-│   └── mkdocs.yml          # MkDocs configuration
-├── output/                 # Generated output files
-├── run.sh                  # Main build script
-└── README.md               # This file
+├── LICENSE                   # Project license
+├── Makefile                  # Build automation
+├── README.md                 # This file
+├── run.sh                    # Main build script
+├── rtl/                      # Verilog RTL source files
+│   ├── adc_interface.v       # ADC interface module
+│   ├── fixed_point_math.v    # Fixed-point math utilities
+│   ├── i2c_slave.v           # I2C slave interface
+│   ├── mppt.v                # Main MPPT controller module
+│   ├── mppt_ic_core.v        # MPPT incremental conductance core
+│   ├── protection_logic.v    # Protection and safety logic
+│   ├── pwm_generator.v       # PWM signal generator
+│   ├── spi_slave.v           # SPI slave interface
+│   └── uart_modbus.v         # UART Modbus interface
+└── sim/                      # Simulation files
+    └── tb_mppt_controller.v  # Testbench for MPPT controller
 ```
 
 ## Setup Instructions
