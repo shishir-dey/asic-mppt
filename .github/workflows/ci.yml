@@ -1,0 +1,26 @@
+name: RTL to GDSII
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y yosys verilator iverilog
+
+    - name: Create output directories
+      run: |
+        mkdir -p synth/reports
+
+    - name: Run synthesis
+      run: ./run.sh synth

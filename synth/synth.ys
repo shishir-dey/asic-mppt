@@ -1,0 +1,33 @@
+# Yosys synthesis script for MPPT ASIC controller
+# This script synthesizes the RTL design to a gate-level netlist
+
+# Read all RTL source files
+read_verilog -sv ../rtl/adc_interface.v
+read_verilog -sv ../rtl/fixed_point_math.v
+read_verilog -sv ../rtl/i2c_slave.v
+read_verilog -sv ../rtl/mppt_ic_core.v
+read_verilog -sv ../rtl/mppt.v
+read_verilog -sv ../rtl/protection_logic.v
+read_verilog -sv ../rtl/pwm_generator.v
+read_verilog -sv ../rtl/spi_slave.v
+read_verilog -sv ../rtl/uart_modbus.v
+
+# Set the top module
+hierarchy -check -top mppt_controller
+
+# Generic synthesis flow
+proc; opt; memory; opt; fsm; opt
+
+# Technology mapping (generic)
+techmap; opt
+
+# Clean up and optimize
+clean
+
+# Write synthesis report
+tee -o ../synth/reports/synthesis.log stat
+
+# Write the synthesized netlist
+write_verilog -noattr ../synth/netlist.v
+
+# Exit
